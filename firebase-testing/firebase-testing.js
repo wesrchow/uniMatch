@@ -7,6 +7,7 @@
 const googleSignIn = document.getElementById("google-signin");
 const googleSignOut = document.getElementById("google-signout");
 const loginStatus = document.getElementById("login-status");
+const userInfo = document.getElementById("user-info");
 
 /*
 *
@@ -36,13 +37,13 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-auth.js";
 
 /*
 *
-* google sign in stuff
+* google sign in
 *
 * */
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-auth.js";
 
 const provider = new GoogleAuthProvider(app);
 const auth = getAuth(app);
@@ -57,6 +58,9 @@ googleSignIn.addEventListener('click', function () {
             const user = result.user;
             // ...
             loginStatus.innerText = "signed in as " + user.displayName;
+            setData(user.uid, user.displayName);
+
+            getData(user.uid);
         }).catch((error) => {
         // Handle Errors here.
         const errorCode = error.code;
@@ -73,7 +77,49 @@ googleSignOut.addEventListener('click', function () {
     signOut(auth).then(() => {
         // Sign-out successful.
         loginStatus.innerText = "not logged in";
+        userInfo.innerText = "";
     }).catch((error) => {
         // An error happened.
     });
 });
+
+/*
+*
+* firestore
+*
+* */
+
+import { getFirestore, collection, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-firestore.js";
+
+const db = getFirestore(app);
+
+async function setData(userId, userDisplayName) {
+    try {
+        await setDoc(doc(db, "user-preferences", userId), {
+            name: userDisplayName,
+            location: "illinois",
+            gpa: 6,
+            sat_score: 1600
+        });
+    } catch (e) {
+        console.log("setData failed: " + e);
+    }
+
+}
+
+async function getData(userId) {
+    const docRef = doc(db, "user-preferences", userId);
+    const docSnap = await getDoc(docRef);
+
+    try {
+        if (docSnap.exists()) {
+            console.log("Document data:", docSnap.data());
+            userInfo.innerText = JSON.stringify(docSnap.data());
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    } catch (e) {
+        console.log("getData failed: " + e);
+    }
+}
