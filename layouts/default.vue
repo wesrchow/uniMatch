@@ -10,11 +10,11 @@
       </v-app-bar>
       <Nuxt/>
     </v-main>
-    <v-footer
-      app
-    >
-      <span>built during nwHacks 2023</span>
-    </v-footer>
+<!--    <v-footer-->
+<!--      app-->
+<!--    >-->
+<!--&lt;!&ndash;      <span>built during nwHacks 2023</span>&ndash;&gt;-->
+<!--    </v-footer>-->
   </v-app>
 </template>
 

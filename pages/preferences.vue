@@ -24,7 +24,7 @@
             tick-size="4"
             :tick-labels="sliderLabels"
           ></v-slider>
-          
+
           <p class="mt-2 mb-1">Preferred university size:</p>
           <v-slider
             v-model="size"
@@ -39,7 +39,7 @@
           <p>Regions to search for a match:</p>
           <div v-for="(r, i) in regions" class="d-inline-block mr-5">
             <label :for="regions[i][0]">
-              <input 
+              <input
               :name="regions[i][0]"
               class="d-inline"
               type="checkbox"
@@ -55,6 +55,14 @@
     </v-container>
 </template>
 <script>
+/*
+*
+* firestore
+*
+* */
+import {getFirestore, collection, doc, setDoc, getDoc, updateDoc} from "firebase/firestore";
+const db = getFirestore(app);
+
 export default {
   name: 'PreferencesPage',
   data() {
@@ -79,7 +87,10 @@ export default {
   },
   methods: {
     updatePrefs() {
-      // submit prefs to firestore
+      // update preferences to firestore
+      let user = localStorage.getItem(AUTH_STORE);
+      console.log(user.uid);
+
     }
   }
 }

@@ -22,8 +22,6 @@
 * firebase setup
 *
 * */
-// Import the functions you need from the SDKs you need
-// import {initializeApp} from "https://www.gstatic.com/firebasejs/9.16.0/firebase-app.js";
 import {initializeApp} from "firebase/app";
 import {getAuth, signInWithPopup, GoogleAuthProvider, signOut} from "firebase/auth";
 
@@ -68,6 +66,7 @@ export default {
             // do stuff with the newly signed-in user
             // move on to preferences page or...
             localStorage.setItem(AUTH_STORE, user);
+
 
           }).catch((error) => {
           // Handle Errors here.

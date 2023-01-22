@@ -104,7 +104,6 @@ googleSignOut.addEventListener('click', function () {
 * */
 
 import {getFirestore, collection, doc, setDoc, getDoc, updateDoc} from "https://www.gstatic.com/firebasejs/9.16.0/firebase-firestore.js";
-
 const db = getFirestore(app);
 
 /*
