@@ -6,8 +6,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - college-match',
-    title: 'college-match',
+/*    titleTemplate: '%s - college-match',*/
+    title: 'uniMatch',
     htmlAttrs: {
       lang: 'en'
     },

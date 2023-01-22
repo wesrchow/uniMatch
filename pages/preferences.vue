@@ -7668,11 +7668,11 @@ export default {
         "S", "M", "L", "XL"
       ],
       regions: [
-        ["NA 🌎", false],
-        ["Europe 🇪🇺", false],
-        ["Asia 🌏", false],
-        ["Latin America 🌎", false],
-        ["Oceania 🌏", false],
+        ["North America", false],
+        ["Europe", false],
+        ["Asia", false],
+        ["Latin America", false],
+        ["Oceania", false],
       ]
     }
   },

@@ -6,7 +6,7 @@
         class="mb-2"
         absolute
       >
-        <v-toolbar-title style="color: white;">College Match</v-toolbar-title>
+        <v-toolbar-title style="color: white;">uniMatch</v-toolbar-title>
       </v-app-bar>
       <Nuxt/>
     </v-main>
