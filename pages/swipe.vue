@@ -7634,6 +7634,8 @@ export default {
       var yMulti = event.deltaY / 80;
       var rotate = xMulti * yMulti;
 
+      toX *= 3;
+
       event.target.style.transform = 'translate(' + toX + 'px, ' + (toY + event.deltaY) + 'px) rotate(' + rotate + 'deg)';
     }
     }
