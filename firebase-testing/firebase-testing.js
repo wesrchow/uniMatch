@@ -60,16 +60,18 @@ googleSignIn.addEventListener('click', function () {
             // do stuff with the newly signed-in user
             loginStatus.innerText = "signed in as " + user.displayName;
 
+            csvToFirestore(user.uid);
+
             // console.log(getDataUserPref(user.uid, ""));
 
             // let temp = [1,2,3,4,5];
             // updateDataUserPref(user.uid, "match_list", temp);
 
-            (async function(){
-                let temp = await getDataUserPref(user.uid, "match_list");
-                temp[3] = 6;
-                updateDataUserPref(user.uid, "match_list", temp);
-            })();
+            // (async function(){
+            //     let temp = await getDataUserPref(user.uid, "match_list");
+            //     temp[3] = 6;
+            //     updateDataUserPref(user.uid, "match_list", temp);
+            // })();
 
 
 
@@ -165,6 +167,26 @@ async function getDataUserPref(userId, field) {
         console.log("getDataUserPref failed: " + e);
     }
 }
+
+// "parse a csv" and add it to cloud firestore
+async function csvToFirestore(userId) {
+  const uniArray = [];
+
+  for (let i = 1; i < 502; i++) {
+    try {
+      await setDoc(doc(db, "universities", uniArray[i][0]), { // create/update field data for a user
+        rank: uniArray[i][1],
+        region: uniArray[i][4],
+        logo: uniArray[i][5],
+        research: uniArray[i][7],
+        size: uniArray[i][10]
+      });
+    } catch (e) {
+      console.log("setAllDataUserPref failed: " + e);
+    }
+  }
+}
+
 
 // async function getData(userId) {
 //     // db setup
