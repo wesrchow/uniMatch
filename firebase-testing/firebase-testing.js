@@ -60,7 +60,7 @@ googleSignIn.addEventListener('click', function () {
             // do stuff with the newly signed-in user
             loginStatus.innerText = "signed in as " + user.displayName;
 
-            csvToFirestore(user.uid);
+            // csvToFirestore(user.uid);
 
             // console.log(getDataUserPref(user.uid, ""));
 

@@ -7705,10 +7705,6 @@ export default {
           // remake the match_list (or create it)
           let match_list = new Map();
           // add all unis to the map with score 0
-          // uniList.forEach(function (value) {
-          //   match_list.set(value[0], 0);
-          // });
-
           uniList.forEach( (value) => { // for each uni, calculate its score
             let score = 0;
 
@@ -7729,7 +7725,9 @@ export default {
             }
 
             // size calculation
-
+            if (this.size === value[10]) {
+              score += 25;
+            }
 
             // ranking calculation
             score += this.ranking * 1/value[1]*5;
