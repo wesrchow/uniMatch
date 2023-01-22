@@ -82,7 +82,6 @@ export default {
   mounted() {
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
-
     const db = getFirestore(app);
 
     /*
@@ -115,7 +114,7 @@ export default {
           }
         } else {
           // doc.data() will be undefined in this case
-          console.log("No such document!");
+          console.log("no data for the user yet");
         }
       } catch (e) {
         console.log("getDataUserPref failed: " + e);
@@ -150,6 +149,9 @@ export default {
       * update preferences to firestore
       *
       * */
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
 
       // set up the user again
       const auth = getAuth();
@@ -167,6 +169,7 @@ export default {
       (async () => {
         try {
           await setDoc(doc(db, "user-preferences", user.uid), { // create/update field data for a user
+            name: user.displayName,
             region: regionsArrayOutput,
             research: this.research,
             size: this.size,
