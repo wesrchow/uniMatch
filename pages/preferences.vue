@@ -60,7 +60,26 @@
 * firestore
 *
 * */
+import {initializeApp} from "firebase/app";
 import {getFirestore, collection, doc, setDoc, getDoc, updateDoc} from "firebase/firestore";
+import {getAuth} from "firebase/auth";
+import {AUTH_STORE} from "static/constants";
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyATmp3Xr0BUxoWEuJRttMN6u7-AMvQXOmo",
+  authDomain: "college-match-ffdb8.firebaseapp.com",
+  projectId: "college-match-ffdb8",
+  storageBucket: "college-match-ffdb8.appspot.com",
+  messagingSenderId: "49669029688",
+  appId: "1:49669029688:web:da85c13df4a57b36228bcd",
+  measurementId: "G-P20WKV0RHS"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
 const db = getFirestore(app);
 
 export default {
@@ -88,7 +107,8 @@ export default {
   methods: {
     updatePrefs() {
       // update preferences to firestore
-      let user = localStorage.getItem(AUTH_STORE);
+      const auth = getAuth();
+      let user = auth.currentUser;
       console.log(user.uid);
 
     }
