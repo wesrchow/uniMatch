@@ -13,7 +13,7 @@
     <v-footer
       app
     >
-      <span>nwHacks 2023</span>
+      <span>built during nwHacks 2023</span>
     </v-footer>
   </v-app>
 </template>
