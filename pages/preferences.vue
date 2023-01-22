@@ -7736,21 +7736,25 @@ export default {
             match_list.set(value[0], score);
           });
 
-          console.log(match_list);
-
-          console.log(Array.from(match_list));
+          // console.log(match_list);
+          //
+          // console.log(Array.from(match_list));
 
           let temp = Array.from(match_list);
-          temp.sort(function (a, b) {
-            if (a[1] === b[1]) {
-              return 0;
-            }
-            else {
-              return (a[1] > b[1]) ? -1 : 1;
-            }
-          })
 
-          console.log(temp);
+          const temp2 = temp.map((obj)=> {return Object.assign({}, obj)});
+
+
+          // temp.sort(function (a, b) {
+          //   if (a[1] === b[1]) {
+          //     return 0;
+          //   }
+          //   else {
+          //     return (a[1] > b[1]) ? -1 : 1;
+          //   }
+          // })
+          //
+          // console.log(temp);
 
           await setDoc(doc(db, "user-preferences", user.uid), { // create/update field data for a user
             name: user.displayName,
@@ -7758,7 +7762,7 @@ export default {
             research: this.research,
             size: this.size,
             ranking: this.ranking,
-            match_list: "match_list"
+            match_list: temp2
           });
           // TODO: preferences updated
 
