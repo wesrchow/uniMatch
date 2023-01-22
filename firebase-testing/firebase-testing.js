@@ -9,6 +9,7 @@ const googleSignOut = document.getElementById("google-signout");
 const loginStatus = document.getElementById("login-status");
 const userInfo = document.getElementById("user-info");
 
+
 /*
 *
 * firebase setup
@@ -16,11 +17,8 @@ const userInfo = document.getElementById("user-info");
 * */
 
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-analytics.js";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
+import {initializeApp} from "https://www.gstatic.com/firebasejs/9.16.0/firebase-app.js";
+import {getAnalytics} from "https://www.gstatic.com/firebasejs/9.16.0/firebase-analytics.js";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -37,7 +35,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-auth.js";
+import {getAuth, signInWithPopup, GoogleAuthProvider, signOut} from "https://www.gstatic.com/firebasejs/9.16.0/firebase-auth.js";
+
 
 /*
 *
@@ -58,16 +57,21 @@ googleSignIn.addEventListener('click', function () {
             // The signed-in user info.
             const user = result.user;
 
-            // do stuff with the newly signed in user
+            // do stuff with the newly signed-in user
             loginStatus.innerText = "signed in as " + user.displayName;
 
             // console.log(getDataUserPref(user.uid, ""));
 
-            setAllDataUserPref(user.uid, user.displayName, "place", true, "large", 10);
+            // let temp = [1,2,3,4,5];
+            // updateDataUserPref(user.uid, "match_list", temp);
 
-            getDataUserPref(user.uid, "region");
-            //
-            // getData(user.uid);
+            (async function(){
+                let temp = await getDataUserPref(user.uid, "match_list");
+                temp[3] = 6;
+                updateDataUserPref(user.uid, "match_list", temp);
+            })();
+
+
 
         }).catch((error) => {
         // Handle Errors here.
@@ -92,13 +96,14 @@ googleSignOut.addEventListener('click', function () {
     });
 });
 
+
 /*
 *
 * firestore
 *
 * */
 
-import { getFirestore, collection, doc, setDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-firestore.js";
+import {getFirestore, collection, doc, setDoc, getDoc, updateDoc} from "https://www.gstatic.com/firebasejs/9.16.0/firebase-firestore.js";
 
 const db = getFirestore(app);
 
@@ -124,6 +129,7 @@ async function setAllDataUserPref(userId, userDisplayName, region, research, siz
             ranking: ranking,
             match_list: match_list
         });
+        console.log("all data");
     } catch (e) {
         console.log("setAllDataUserPref failed: " + e);
     }
@@ -137,6 +143,7 @@ async function updateDataUserPref(userId, fieldEdit, fieldData) {
         await updateDoc(docRef, { // update the firestore field
             [fieldEdit]: fieldData
         });
+        console.log("update data");
     } catch (e) {
         console.log("updateDataUserPref failed: " + e);
     }
@@ -150,7 +157,7 @@ async function getDataUserPref(userId, field) {
 
     try {
         if (docSnap.exists()) {
-            console.log(docSnap.get(field)); // get the value of the field for this user
+            return docSnap.get(field); // get the value of the field for this user
         } else {
             // doc.data() will be undefined in this case
             console.log("No such document!");
