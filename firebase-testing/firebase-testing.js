@@ -204,3 +204,8 @@ async function csvToFirestore(userId) {
 //         console.log("getData failed: " + e);
 //     }
 // }
+
+function updateUni(uni, scoreDiff) {
+  // increment or decrement the local maps uni score
+}
+// when done this function for all current session of swiped unis, write to the users match_list
