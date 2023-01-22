@@ -7564,7 +7564,7 @@ export default {
   mounted() {
     for (let i = 0; i < 15; i++) {
       let pick = Math.floor(Math.random() * 500);
-      this.swipeQueue.push({schoolName: uniList[pick][0], location: uniList[pick][3], ranking: uniList[pick][1], logo:uniList[pick][5]});
+      this.swipeQueue.push({schoolName: uniList[pick][0], location: uniList[pick][3] + ", " + uniList[pick][4], ranking: uniList[pick][1], logo:uniList[pick][5]});
     }
   },
   data() {
