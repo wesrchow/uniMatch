@@ -48,7 +48,7 @@
           </div>
           <v-row>
             <v-spacer></v-spacer>
-            <v-btn class="ma-4" color="blue">UPDATE</v-btn>
+            <v-btn @click="updatePrefs" class="ma-4" color="blue">UPDATE</v-btn>
           </v-row>
         </v-form>
       </v-col>
@@ -75,6 +75,11 @@ export default {
         ["Latin America 🌎", false],
         ["Oceania 🌏", false],
       ]
+    }
+  },
+  methods: {
+    updatePrefs() {
+      // submit prefs to firestore
     }
   }
 }
