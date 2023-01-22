@@ -8,7 +8,7 @@
       >
         <v-toolbar-title style="color: white;">College Match</v-toolbar-title>
       </v-app-bar>
-      <Nuxt style="margin-top: 7vh;"/>
+      <Nuxt/>
     </v-main>
     <v-footer
       app
@@ -25,7 +25,9 @@ export default {
 </script>
 <style>
 body {
-  max-width: min(100vw, 550px);
+  width: min(100vw, 550px);
   margin: auto;
+
+  font-family: 'Poppins';font-size: 22px;
 }
 </style>
