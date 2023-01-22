@@ -67,6 +67,7 @@ export default {
             // move on to preferences page or...
             localStorage.setItem(AUTH_STORE, user);
 
+            this.$router.push("/preferences");
 
           }).catch((error) => {
           // Handle Errors here.
