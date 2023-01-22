@@ -7567,10 +7567,10 @@ export default {
     for (let i = 0; i < 15; i++) {
       let pick = Math.floor(Math.random() * 500);
       this.swipeQueue.push({
-        schoolName: uniList[pick][0], 
-        location: uniList[pick][3], 
-        ranking: uniList[pick][1], 
-        logo:uniList[pick][5], 
+        schoolName: uniList[pick][0],
+        location: uniList[pick][3],
+        ranking: uniList[pick][1],
+        logo:uniList[pick][5],
         status:uniList[pick][6]});
     }
   },
@@ -7637,6 +7637,12 @@ export default {
       toX *= 3;
 
       event.target.style.transform = 'translate(' + toX + 'px, ' + (toY + event.deltaY) + 'px) rotate(' + rotate + 'deg)';
+
+      if (event.velocityX > 0) {
+        event.target.style.background = '#00FF00'
+      } else {
+        event.target.style.background = '#FF0000'
+      }
     }
     }
   },
