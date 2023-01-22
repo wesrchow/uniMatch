@@ -54,13 +54,21 @@ googleSignIn.addEventListener('click', function () {
             // This gives you a Google Access Token. You can use it to access the Google API.
             const credential = GoogleAuthProvider.credentialFromResult(result);
             const token = credential.accessToken;
+
             // The signed-in user info.
             const user = result.user;
-            // ...
-            loginStatus.innerText = "signed in as " + user.displayName;
-            setData(user.uid, user.displayName);
 
-            getData(user.uid);
+            // do stuff with the newly signed in user
+            loginStatus.innerText = "signed in as " + user.displayName;
+
+            // console.log(getDataUserPref(user.uid, ""));
+
+            setAllDataUserPref(user.uid, user.displayName, "place", true, "large", 10);
+
+            getDataUserPref(user.uid, "region");
+            //
+            // getData(user.uid);
+
         }).catch((error) => {
         // Handle Errors here.
         const errorCode = error.code;
@@ -78,6 +86,7 @@ googleSignOut.addEventListener('click', function () {
         // Sign-out successful.
         loginStatus.innerText = "not logged in";
         userInfo.innerText = "";
+
     }).catch((error) => {
         // An error happened.
     });
@@ -89,37 +98,81 @@ googleSignOut.addEventListener('click', function () {
 *
 * */
 
-import { getFirestore, collection, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-firestore.js";
+import { getFirestore, collection, doc, setDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-firestore.js";
 
 const db = getFirestore(app);
 
-async function setData(userId, userDisplayName) {
+/*
+* preference definitions
+*
+* region: multi select
+* research: boolean
+* size: multi select
+* ranking: priority 0 - 10
+* match_list: array of numbers that stores the priority of a given college (matches the order from college list collection array)
+*
+* */
+
+// set all user preference data for a user
+async function setAllDataUserPref(userId, userDisplayName, region, research, size, ranking, match_list) {
     try {
-        await setDoc(doc(db, "user-preferences", userId), {
+        await setDoc(doc(db, "user-preferences", userId), { // create/update all field data for a user
             name: userDisplayName,
-            location: "illinois",
-            gpa: 6,
-            sat_score: 1600
+            region: region,
+            research: research,
+            size: size,
+            ranking: ranking,
+            match_list: match_list
         });
     } catch (e) {
-        console.log("setData failed: " + e);
+        console.log("setAllDataUserPref failed: " + e);
     }
-
 }
 
-async function getData(userId) {
+// update a single field for a users preferences
+async function updateDataUserPref(userId, fieldEdit, fieldData) {
+    const docRef = doc(db, "user-preferences", userId); // get a doc object for the current user
+
+    try {
+        await updateDoc(docRef, { // update the firestore field
+            [fieldEdit]: fieldData
+        });
+    } catch (e) {
+        console.log("updateDataUserPref failed: " + e);
+    }
+}
+
+// get a single field from a users preferences
+async function getDataUserPref(userId, field) {
+    // db setup
     const docRef = doc(db, "user-preferences", userId);
     const docSnap = await getDoc(docRef);
 
     try {
         if (docSnap.exists()) {
-            console.log("Document data:", docSnap.data());
-            userInfo.innerText = JSON.stringify(docSnap.data());
+            console.log(docSnap.get(field)); // get the value of the field for this user
         } else {
             // doc.data() will be undefined in this case
             console.log("No such document!");
         }
     } catch (e) {
-        console.log("getData failed: " + e);
+        console.log("getDataUserPref failed: " + e);
     }
 }
+
+// async function getData(userId) {
+//     // db setup
+//     const docRef = doc(db, "user-preferences", userId);
+//     const docSnap = await getDoc(docRef);
+//
+//     try {
+//         if (docSnap.exists()) {
+//             userInfo.innerText = JSON.stringify(docSnap.data());
+//         } else {
+//             // doc.data() will be undefined in this case
+//             console.log("No such document!");
+//         }
+//     } catch (e) {
+//         console.log("getData failed: " + e);
+//     }
+// }
