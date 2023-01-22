@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container style="margin-top: 70px;">
     <v-row>
       <v-spacer></v-spacer>
       <v-col cols="10" class="d-flex flex-column align-center">
@@ -12,6 +12,8 @@
         :ranking="uni.ranking"
         :size="uni.size"
         :research="uni.research"
+        :status="uni.status"
+        :logo="uni.logo"
 
         v-hammer:pan="e => pan(e, `${uni.schoolName}-${i}`)"
         v-hammer:panend="e => panend(e)"
@@ -7564,7 +7566,12 @@ export default {
   mounted() {
     for (let i = 0; i < 15; i++) {
       let pick = Math.floor(Math.random() * 500);
-      this.swipeQueue.push({schoolName: uniList[pick][0], location: uniList[pick][3] + ", " + uniList[pick][4], ranking: uniList[pick][1], logo:uniList[pick][5]});
+      this.swipeQueue.push({
+        schoolName: uniList[pick][0], 
+        location: uniList[pick][3], 
+        ranking: uniList[pick][1], 
+        logo:uniList[pick][5], 
+        status:uniList[pick][6]});
     }
   },
   data() {

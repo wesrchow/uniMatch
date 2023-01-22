@@ -1,11 +1,19 @@
 <!-- design from: https://codepen.io/RobVermeer/pen/japZpY by Rob Vermeer -->
 <template>
   <div class="card">
-    <img src="https://placeimg.com/600/300/people">
-    <h3>{{ this.schoolName }}</h3>
-    <div class="tag-container">
-      📍 {{ this.location }}
+    <div style="
+    width: 100%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;">
+    <img :src="this.logo" referrerpolicy="no-referrer" style="height: 20vh">
+
     </div>
+    <h3>{{ this.schoolName }}</h3>
+    <v-chip class="ml-3 mt-2" style="font-size: 0.8em;">
+      📍 {{ this.location }}
+    </v-chip>
+    <p>{{ this.status }} University</p>
     <p>Ranked #<strong>{{ this.ranking }}</strong> Globally</p>
 
   </div>
@@ -15,14 +23,17 @@ export default {
   props: {
     schoolName: String,
     location: String,
-    ranking: Number,
+    ranking: String,
     size: String,
     research: Boolean,
+    status: String,
+    logo: String,
   },
 }
 </script>
 <style scoped>
 .card {
+  min-height: 70vh;
   display: inline-block;
   width: 95vw;
   max-width: 400px;
