@@ -6,11 +6,13 @@
         class="mb-2"
         absolute
       >
-        <v-toolbar-title style="color: white;">uniMatch</v-toolbar-title>
+        <div @click="home">
+          <v-toolbar-title style="color: white;" >uniMatch</v-toolbar-title>
+        </div>
       </v-app-bar>
       <Nuxt/>
     </v-main>
-    <v-bottom-navigation v-model="value" color="primary" grow>
+    <v-bottom-navigation v-model="value" color="primary" grow absolute>
       <v-btn value="preferences" @click="$router.push('/preferences')">
         <v-icon>mdi-cog-outline</v-icon>
       </v-btn>
@@ -32,12 +34,23 @@
 </template>
 
 <script>
+import { AUTH_STORE } from '../static/constants';
+
 export default {
   name: 'DefaultLayout',
   data() {
     return {
-      value: "swipe"
+      value: "swipe",
+      loggedIn: false,
     }
+  },
+  methods: {
+    home() {
+      this.$router.push("/")
+    }
+  },
+  created() {
+    if(localStorage.getItem(AUTH_STORE)) this.loggedIn = true;
   }
 }
 </script>
