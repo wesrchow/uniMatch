@@ -12,7 +12,7 @@
       </v-app-bar>
       <Nuxt/>
     </v-main>
-    <v-bottom-navigation v-model="value" color="primary" grow absolute fixed>
+    <v-bottom-navigation v-model="value" color="primary" grow fixed>
       <v-btn value="preferences" @click="$router.push('/preferences')">
         <v-icon>mdi-cog-outline</v-icon>
       </v-btn>
