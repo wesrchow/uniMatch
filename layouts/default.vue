@@ -10,6 +10,19 @@
       </v-app-bar>
       <Nuxt/>
     </v-main>
+    <v-bottom-navigation v-model="value" color="primary" grow>
+      <v-btn value="preferences" @click="$router.push('/preferences')">
+        <v-icon>mdi-cog-outline</v-icon>
+      </v-btn>
+
+      <v-btn value="swipe" @click="$router.push('/swipe')">
+        <v-icon>mdi-school-outline</v-icon>
+      </v-btn>
+
+      <v-btn value="results" @click="$router.push('/results')">
+        <v-icon>mdi-heart-outline</v-icon>
+      </v-btn>
+    </v-bottom-navigation>
 <!--    <v-footer-->
 <!--      app-->
 <!--    >-->
@@ -21,6 +34,11 @@
 <script>
 export default {
   name: 'DefaultLayout',
+  data() {
+    return {
+      value: "swipe"
+    }
+  }
 }
 </script>
 <style>
