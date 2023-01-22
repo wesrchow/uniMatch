@@ -100,3 +100,27 @@ sw.*
 
 # Built Visual Studio Code Extensions
 *.vsix
+
+.firebase/hosting.ZGlzdA.cache
+
+.firebaserc
+
+database.rules.json
+
+firebase.json
+
+firestore.indexes.json
+
+firestore.rules
+
+functions/index.js
+
+functions/package-lock.json
+
+functions/package.json
+
+public/index.html
+
+remoteconfig.template.json
+
+storage.rules
