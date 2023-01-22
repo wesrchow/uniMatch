@@ -3,20 +3,80 @@
       <v-row>
         <v-spacer></v-spacer>
         <v-col cols="12" style="display: flex; justify-content: center; align-items: center;">
-          <GoogleButton
-            @click="authLogin"
-          ></GoogleButton>
+          <GoogleButton @click.native="authLogin()"></GoogleButton>
         </v-col>
         <v-spacer></v-spacer>
       </v-row>
     </v-container>
 </template>
 <script>
+/*
+*
+* global stuff
+*
+* */
+
+
+/*
+*
+* firebase setup
+*
+* */
+// Import the functions you need from the SDKs you need
+// import {initializeApp} from "https://www.gstatic.com/firebasejs/9.16.0/firebase-app.js";
+import {initializeApp} from "firebase/app";
+import {getAuth, signInWithPopup, GoogleAuthProvider, signOut} from "firebase/auth";
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyATmp3Xr0BUxoWEuJRttMN6u7-AMvQXOmo",
+  authDomain: "college-match-ffdb8.firebaseapp.com",
+  projectId: "college-match-ffdb8",
+  storageBucket: "college-match-ffdb8.appspot.com",
+  messagingSenderId: "49669029688",
+  appId: "1:49669029688:web:da85c13df4a57b36228bcd",
+  measurementId: "G-P20WKV0RHS"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
 export default {
   name: 'LoginPage',
   methods: {
     authLogin() {
-      // login method
+      /*
+      *
+      * google sign in
+      *
+      * */
+      const provider = new GoogleAuthProvider(app);
+      const auth = getAuth(app);
+
+      signInWithPopup(auth, provider)
+          .then((result) => {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            // const credential = GoogleAuthProvider.credentialFromResult(result);
+            // const token = credential.accessToken;
+
+            // The signed-in user info.
+            const user = result.user;
+
+            // do stuff with the newly signed-in user
+            // move on to preferences page or...
+            
+
+          }).catch((error) => {
+          // Handle Errors here.
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // The email of the user's account used.
+          const email = error.customData.email;
+          // The AuthCredential type that was used.
+          const credential = GoogleAuthProvider.credentialFromError(error);
+          // ...
+        });
     }
   }
 }
