@@ -27,6 +27,8 @@
 import {initializeApp} from "firebase/app";
 import {getAuth, signInWithPopup, GoogleAuthProvider, signOut} from "firebase/auth";
 
+import { AUTH_STORE } from "../static/constants";
+
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -65,7 +67,7 @@ export default {
 
             // do stuff with the newly signed-in user
             // move on to preferences page or...
-            
+            localStorage.setItem(AUTH_STORE, user);
 
           }).catch((error) => {
           // Handle Errors here.
